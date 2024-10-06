@@ -1,5 +1,6 @@
 ---
 import Footer from '@/components/Footer.astro';
+import '@fontsource/iosevka';
 import '@/styles/global.css';
 ---
 
@@ -14,7 +15,7 @@ import '@/styles/global.css';
 		<meta name="generator" content={Astro.generator} />
 		<title>voltycodes</title>
 	</head>
-	<body class="dark p-8 bg-background text-foreground">
+	<body class="dark p-8 bg-background text-foreground font-mono">
 		<slot />
 		<Footer />
 	</body>
