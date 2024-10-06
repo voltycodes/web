@@ -2,6 +2,20 @@
 import Footer from '@/components/Footer.astro';
 import '@fontsource/iosevka';
 import '@/styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title, description } = Astro.props;
+
+let pageTitle = title ? title : "voltycodes";
+let pageDescription = description ? description : "full-stack dev crafting unique digital experiences";
+
+const baseUrl = 'https://voltycodes.github.io'; // Base URL of your site
+const currentPath = Astro.url.pathname; // Get the current page's path
+const fullUrl = `${baseUrl}${currentPath}`; // Combine base URL and current path
 ---
 
 <!doctype html>
@@ -10,10 +24,30 @@ import '@/styles/global.css';
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
+
 		<link rel="icon" type="image/jpg" href="/pfp.jpeg" />
+		
 		<meta name="color-scheme" content="dark">
 		<meta name="generator" content={Astro.generator} />
-		<title>voltycodes</title>
+
+		<!-- Primary Meta Tags -->
+		<title>{pageTitle}</title>
+		<meta name="title" content={pageTitle} />
+		<meta name="description" content={pageDescription} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={fullUrl} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		<meta property="og:image" content="/meta.jpg" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={fullUrl} />
+		<meta property="twitter:title" content={pageTitle} />
+		<meta property="twitter:description" content={pageDescription} />
+		<meta property="twitter:image" content="/meta.jpg" />
 	</head>
 	<body class="dark p-8 bg-background text-foreground font-mono">
 		<slot />

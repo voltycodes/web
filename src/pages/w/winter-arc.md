@@ -1,6 +1,7 @@
 ---
 layout: ../../layouts/PostLayout.astro
 title: Winter Arc Plan
+description: A 90-day learning plan for mastering Java, Spring Boot, Kafka, and System Design.
 created: 2024-10-07
 lastUpdated: 2024-10-07
 ---

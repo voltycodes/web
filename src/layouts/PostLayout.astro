@@ -4,16 +4,17 @@ import SectionLayout from "@/layouts/SectionLayout.astro";
 
 const { frontmatter } = Astro.props;
 ---
-<Layout>
+<Layout title={frontmatter.title} description={frontmatter.description}>
   <a class="lg:fixed lg:mt-8 p-2 px-3 border-2 border-foreground/50 hover:bg-white/15 transition-all duration-200 ease-out" href="/">← Go Back</a>
 	<SectionLayout title='title'>
 		<h1 class="text-xl mb-1">{frontmatter.title}</h1>
-    <p class="text-sm text-foreground/75">created: {frontmatter.created.slice(0,10)}</p>
+		<p class="text-sm text-foreground/75">{frontmatter.description}</p>
 	</SectionLayout>
 
 	<SectionLayout className="prose dark:prose-invert">
 		<slot />
     <hr />
+    <p class="text-sm text-foreground/75">created: {frontmatter.created.slice(0,10)}</p>
     <p class="text-sm text-foreground/75">last updated: {frontmatter.lastUpdated.slice(0,10)}</p>
 	</SectionLayout>
 </Layout>

@@ -1,6 +1,7 @@
 ---
 layout: ../../layouts/PostLayout.astro
 title: Goals
+description: My goals for the next few years.
 created: 2024-10-07
 lastUpdated: 2024-10-07
 ---
