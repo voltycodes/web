@@ -22,7 +22,9 @@ try {
 
     activity_image = `https://raw.githubusercontent.com${large_image}`;
     activity_subimg = `https://raw.githubusercontent.com${sub_image}`;
-    activity_text = `${data.data.activities[0].name} - ${data.data.activities[0].state}`;
+    // check if the details contain the word "editing" if so use that else use state
+    const activity_data = data.data.activities[0].name === "Neovim" ? data.data.activities[0].details : data.data.activities[0].state;
+    activity_text = `${data.data.activities[0].name} - ${activity_data}`;
   }
 
   discord_status = data.data.discord_status;
