@@ -6,20 +6,14 @@ import SectionLayout from '@/layouts/SectionLayout.astro';
 
 import data from '@/data/projects.json';
 import { InvalidFrontmatterInjectionError } from 'node_modules/astro/dist/core/errors/errors-data';
+import MetaSection from '@/components/MetaSection.astro';
 const allPosts = await Astro.glob('./w/*.md');
 
 ---
 
 <Layout>
 
-	<SectionLayout title='meta' className='flex flex-row items-center gap-4'>
-		<img src="/pfp.jpeg" alt="voltycodes" class="w-12 h-12" />
-		<div>
-			<h1 class="text-xl mb-1">@voltycodes</h1>
-			<p class="text-sm text-foreground/75">full-stack dev | tech + anime | unfiltered thoughts, shitposts & dailylogs</p>
-		</div>
-		
-	</SectionLayout>
+	<MetaSection />
 
 	<SectionLayout title='about'>
 		<p>final year uni student majoring in cs, passionate about building full stack solutions that scale.</p>

@@ -1,0 +1,54 @@
+---
+import SectionLayout from '@/layouts/SectionLayout.astro';
+
+// DATA
+let discord_status = "offline";
+let activity_image = "/idle.gif";
+let activity_subimg = "/idle.svg";
+let activity_text = "idling...";
+
+// FETCH DISCORD STATUS FROM LANYARD
+try {
+  const response = await fetch("https://api.lanyard.rest/v1/users/1278317928709750869");
+  const data = await response.json();
+
+  if (data.data.listening_to_spotify === true) {
+    activity_image = data.data.spotify.album_art_url;
+    activity_subimg = "/spotify.svg";
+    activity_text = `currently listening to ${data.data.spotify.song} by ${data.data.spotify.artist}`;
+  } else if (data.data.activities.length > 0) {
+    const large_image = data.data.activities[0].assets.large_image.split("raw.githubusercontent.com")[1];
+    const sub_image = data.data.activities[0].assets.small_image.split("raw.githubusercontent.com")[1];
+
+    activity_image = `https://raw.githubusercontent.com${large_image}`;
+    activity_subimg = `https://raw.githubusercontent.com${sub_image}`;
+    activity_text = `${data.data.activities[0].name} - ${data.data.activities[0].state}`;
+  }
+
+  discord_status = data.data.discord_status;
+}
+
+catch (error) {
+  console.error(error);
+}
+
+const statusColor = discord_status === "online" ? "green-400" : discord_status === "dnd" ? "red-400" : discord_status === "idle" ? "yellow-400" : "gray-400";
+// const border = `border-${statusColor}`;
+const bg = `bg-${statusColor}`;
+---
+
+<SectionLayout title='meta' className='flex flex-wrap flex-row items-center gap-4 w-full'>
+  <div class={`relative flex items-center justify-center size-12 w-fit`} title={`currently ${discord_status} on discord`}>
+    <img src="/pfp.jpg" alt="voltycodes" class="size-12" />
+    {discord_status && <div class={`absolute ${bg || "bg-gray-300"} size-3 -bottom-[6px] -right-[6px] border-[3px] border-black`} />}
+  </div>
+  <div class="flex-1">
+    <h1 class="text-xl mb-1">@voltycodes</h1>
+    <p class="text-sm text-foreground/75">full-stack dev | tech + anime | unfiltered thoughts, shitposts & dailylogs</p>
+  </div>
+  <div class={`hidden relative md:flex items-center justify-center size-12 w-fit`} title={activity_text}>
+    <img src={activity_image} class="size-12"  />
+    <div class="size-12 absolute top-0 left-0 border-2 border-white/50" />
+    <img src={activity_subimg} class={`absolute size-6 bg-neutral-800 -bottom-2 -right-2 border-[3px] border-black`} />
+  </div>
+</SectionLayout>
